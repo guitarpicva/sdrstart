@@ -4,8 +4,17 @@
 #  This mode is suited for say a Raspberry Pi running the LITE version
 #  where it will run from the CLI without requiring Xwindows
 SDRCMD=`which airspy-fmradion`
-SDR="$SDRCMD -t airspyhf -m usb -q -c freq=7632000,srate=192000 -M -R -"
-
+FREQ=$1
+if [[ "$FREQ" == "" ]]
+then
+    FREQ="7089000"
+fi
+MODE=$2
+if [[ "$MODE" == "" ]]
+then
+    MODE="usb"
+fi
+SDR="$SDRCMD -t airspyhf -m $MODE -q -c freq=$FREQ,srate=192000 -M -R -"
 echo "SDR Command: $SDRCMD"
 #Where will logs go - needs to be writable by non-root users
 # Put the log in the home folder so it's easy to find
